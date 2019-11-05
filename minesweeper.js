@@ -4,9 +4,25 @@ $(document).ready(function () {
 });
 
 var prep = function(){
-    $('#settings').fadeOut(1000, function(){
-        main()
-    });
+    var intRows = Number($('#heightBox').val());
+    var intCols = Number($('#lengthBox').val());
+    var intMines = Number($('#minesBox').val());    
+    if (intRows < 8 || intRows > 30) {
+        alert(intRows + " is an invalid input for the number of rows");
+        return;
+    }
+    else if (intCols < 8 || intCols > 40) {
+        alert(intCols + " is an invalid input for the number of columns");
+        return;
+    }
+    else if (intMines < 1 || intMines > ((intRows * intCols) - 1)) {
+        alert(intMines + " is an invalid input for the number of mines");
+        return;
+    } else{
+        $('#settings').fadeOut(1000, function(){
+            main();
+        });    
+    }
 }
 
 var main = function () {
@@ -24,18 +40,6 @@ var main = function () {
     var intMines = Number($('#minesBox').val());
     var flagCount;
 
-    if (intRows < 8 || intRows > 30) {
-        alert(intRows + " is an invalid input for the number of rows");
-        return;
-    }
-    if (intCols < 8 || intCols > 40) {
-        alert(intCols + " is an invalid input for the number of columns");
-        return;
-    }
-    if (intMines < 1 || intMines > ((intRows * intCols) - 1)) {
-        alert(intMines + " is an invalid input for the number of mines");
-        return;
-    }
     flagCount = intMines;
 
     $('#minefield').fadeIn(1000);
@@ -101,7 +105,7 @@ var main = function () {
             }
         }
         alert("Aw you lost😢");
-
+        location.reload()
     }
 
     function gameWin() {
